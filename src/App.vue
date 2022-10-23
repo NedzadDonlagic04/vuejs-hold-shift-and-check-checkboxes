@@ -1,15 +1,37 @@
+<script>
+let id = 0;
+
+export default {
+    data() {
+        return {
+            items: [
+                { text: 'This is an inbox layout.', name:`input-${id}`, id:id++ },
+                { text: 'Check one item', name:`input-${id}`, id:id++ },
+                { text: 'Hold down your Shift key', name:`input-${id}`} ,
+                { text: 'Check a lower item', name:`input-${id}`, id:id++ },
+                { text: 'Everything inbetween should also be set to checked', name:`input-${id}`, id:id++ },
+                { text: 'Try to do it without any libraries', name:`input-${id}`, id:id++ },
+                { text: 'Just regular Javascript', name:`input-${id}`, id:id++ },
+                { text: 'Good Luck!', name:`input-${id}`, id:id++ },
+                { text: "Don't forget to tweet your result!", name:`input-${id}`, id:id++ }
+            ] 
+        };
+    },
+    methods: {
+        toggleClass(element) {
+            element.classList.toggle('checked');
+        },
+        clickHandler(event) {
+            this.toggleClass(event.path[1]);
+        }
+    }
+};
+</script>
+
 <template>
-    <div class="item">
-        <input type="checkbox">
-        <label for="">Hello there!</label>
-    </div>
-    <div class="item">
-        <input type="checkbox">
-        <label for="">Hello there!</label>
-    </div>
-    <div class="item">
-        <input type="checkbox">
-        <label for="">Hello there!</label>
+    <div class="item" v-for="item of items" :key="item.id">
+        <input type="checkbox" :id="item.name" @click="clickHandler">
+        <label :for="item.name">{{item.text}}</label>
     </div>
 </template>
 
@@ -38,6 +60,7 @@
         padding-left: .4rem;
         padding-top: 1rem;
         vertical-align: middle;
+        font-size: 1rem;
     }
 
     .item.checked {
