@@ -8,7 +8,7 @@
 :root {
     --bg-color: hsl(40, 100%, 50%);
     --app-bg: white;
-    --app-shadow: hsla(0, 0%, 0%, 0.529);
+    --app-shadow: hsla(0, 0%, 0%, 0.3);
     --label-border: hsl(0, 2%, 67%);
 }
 
