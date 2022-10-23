@@ -37,50 +37,32 @@ export default {
 
             this.toggleClass(element);
         },
+        checkElements(element1, element2, state)
+        {
+            let element = element1.element.previousElementSibling;
+            for(let i = element1.id - 1; i > element2.id; i--)
+            {
+                element.querySelector('input[type="checkbox"]').checked = state;
+
+                if(state && !element.classList.contains('checked'))
+                {
+                    element.classList.add('checked');
+                }
+                else if(!state && element.classList.contains('checked'))
+                {
+                    element.classList.remove('checked');
+                }
+
+                element = element.previousElementSibling;
+            }
+        },
         shiftClickHandler() {
             if(this.shiftElements.length === 2)
             {
                 const state = this.shiftElements[1].element.querySelector('input[type="checkbox"]').checked;
                 const [element1, element2] = this.shiftElements;
 
-                if(element1.id > element2.id)
-                {
-                    let element = element1.element.previousElementSibling;
-                    for(let i = element1.id - 1; i > element2.id; i--)
-                    {
-                        element.querySelector('input[type="checkbox"]').checked = state;
-
-                        if(state && !element.classList.contains('checked'))
-                        {
-                            element.classList.add('checked');
-                        }
-                        else if(!state && element.classList.contains('checked'))
-                        {
-                            element.classList.remove('checked');
-                        }
-
-                        element = element.previousElementSibling;
-                    }
-                }
-                else
-                {
-                    let element = element2.element.previousElementSibling;
-                    for(let i = element2.id - 1; i > element1.id; i--)
-                    {
-                        element.querySelector('input[type="checkbox"]').checked = state;
-
-                        if(state && !element.classList.contains('checked'))
-                        {
-                            element.classList.add('checked');
-                        }
-                        else if(!state && element.classList.contains('checked'))
-                        {
-                            element.classList.remove('checked');
-                        }
-
-                        element = element.previousElementSibling;
-                    }
-                }
+                (element1.id > element2.id)? this.checkElements(element1, element2, state) : this.checkElements(element2, element1, state);
             }
         }
     }
